@@ -22,7 +22,7 @@ public class CustomRunner {
         DAO dao = DAO.getDAO();
 
         //TODO нельзя вводить русские буквы. КАК ИСПРАВИТЬ??????????
-        Client client = new Client(0, "eugene");
+        Client client = new Client(0, "eugene", "asdf");
         //добавим клиента
         if (dao.client.create(client)) System.out.println("\nДобавлен:" + client);
         showUsers();

@@ -24,6 +24,7 @@ public class ClientDAO extends AbstractDAO implements InterfaceDAO<Client> {
                 Client client = new Client();
                 client.setId(rs.getInt("id"));
                 client.setName(rs.getString("name"));
+                client.setName(rs.getString("password"));
                 clients.add(client);
             }
         } catch (SQLException e) {
@@ -44,7 +45,7 @@ public class ClientDAO extends AbstractDAO implements InterfaceDAO<Client> {
     @Override
     public boolean create(Client client) {
         String sql = String.format(
-                "INSERT INTO client(name) values('%s');", client.getName()
+                "INSERT INTO client(name) values('%s', '%s');", client.getName(), client.getPassword()
         );
         client.setId(executeUpdate(sql));
         return (client.getId() > 0);
@@ -53,8 +54,11 @@ public class ClientDAO extends AbstractDAO implements InterfaceDAO<Client> {
     @Override
     public boolean update(Client client) {
         String sql = String.format(
-                "UPDATE `client` SET `name` = '%s', WHERE `client`.`id` = %d",
-                client.getName(), client.getId()
+                "UPDATE `client` SET " +
+                        "`name`='%s', " +
+                        "`password`='%s', " +
+                        "WHERE `client`.`id`=%d",
+                client.getName(), client.getPassword(), client.getId()
         );
         return (0 < executeUpdate(sql));
     }
