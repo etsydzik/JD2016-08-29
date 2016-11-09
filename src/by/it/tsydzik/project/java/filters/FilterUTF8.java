@@ -12,6 +12,7 @@ import java.io.IOException;
 @WebFilter(urlPatterns = {"/*"}, initParams = {@WebInitParam(name = "encoding", value = "UTF-8", description = "Encoding param")})
 public class FilterUTF8 implements Filter {
     private String code;
+
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         code = filterConfig.getInitParameter("encoding");
@@ -25,7 +26,7 @@ public class FilterUTF8 implements Filter {
         String codeRequest = servletRequest.getCharacterEncoding();
         if (code != null && code.equalsIgnoreCase(codeRequest))
             servletRequest.setCharacterEncoding(code);
-        filterChain.doFilter(servletRequest,servletResponse);
+        filterChain.doFilter(servletRequest, servletResponse);
     }
 
     @Override
