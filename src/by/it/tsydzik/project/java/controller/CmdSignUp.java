@@ -1,6 +1,6 @@
 package by.it.tsydzik.project.java.controller;
 
-import by.it.tsydzik.project.java.beans.User;
+import by.it.tsydzik.project.java.beans.Client;
 import by.it.tsydzik.project.java.custom_dao.DAO;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,15 +14,12 @@ public class CmdSignUp extends Action {
     @Override
     Action execute(HttpServletRequest req) {
         if (Form.isPost(req)) {
-            User user = new User();
+            Client client = new Client();
             try {
-                //TODO тут добавлять свои beans (client) и к ним уже всё делать, а не user!!!!!!!!!!!!!!!!!!!
-                user.setLogin(Form.getParameter(req, "Login", Patterns.LOGIN));
-                user.setPassword(Form.getParameter(req, "Password", Patterns.PASSWORD));
-                user.setEmail(Form.getParameter(req, "Email", Patterns.EMAIL));
-                user.setFk_Role(2);
+                client.setName(Form.getParameter(req, "name", Patterns.LOGIN));
+                client.setPassword(Form.getParameter(req, "password", Patterns.PASSWORD));
                 DAO dao = DAO.getDAO();
-                if (dao.client.create(user)) {
+                if (dao.client.create(client)) {
                     return Actions.LOGIN.action;
                 } else {
                     Form.showError(req, "Incorrect error");
