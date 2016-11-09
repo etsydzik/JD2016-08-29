@@ -25,11 +25,11 @@ public class CmdSignUp extends Action {
                 if (dao.client.create(user)) {
                     return Actions.LOGIN.action;
                 } else {
-                    req.setAttribute(Messages.MESSAGE_ERROR, "Incorrect error");
+                    Form.showError(req, "Incorrect error");
                     return null;
                 }
             } catch (ParseException e) {
-                req.setAttribute(Messages.MESSAGE_ERROR, "Incorrect data");
+                Form.showError(req, "Incorrect data");
                 return null;
             }
         }
